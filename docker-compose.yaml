@@ -1,0 +1,114 @@
+version: '3.3'
+services:
+    zookeeper:
+      image: confluentinc/cp-zookeeper:latest
+      environment:
+        ZOOKEEPER_CLIENT_PORT: 2181
+        ZOOKEEPER_TICK_TIME: 2000
+      ports:
+        - 22181:2181
+      networks:
+        - drdroid
+    
+    kafka:
+      image: confluentinc/cp-kafka:latest
+      depends_on:
+        - zookeeper
+      ports:
+        - 29092:29092
+      environment:
+        KAFKA_BROKER_ID: 1
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+        KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+        KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+        KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      networks:
+        - drdroid
+
+    init-kafka:
+        image: confluentinc/cp-kafka:latest
+        depends_on:
+          - kafka
+        entrypoint: [ '/bin/sh', '-c' ]
+        command: |
+          "
+          kafka-topics --bootstrap-server kafka:9092 --list
+
+          echo -e 'Creating kafka topics'
+          kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic droid-events
+          "
+        networks:
+          - drdroid
+
+    opensearch:
+        ports:
+            - '9200:9200'
+            - '9600:9600'
+        environment:
+          discovery.type: 'single-node'
+        image: 'opensearchproject/opensearch:2.4.0'
+        networks:
+            - drdroid
+
+    opensearch-dashboards:
+        ports:
+            - '5601:5601'
+        expose:
+            - '5601'
+        environment:
+           OPENSEARCH_HOSTS: '["https://opensearch:9200"]'
+        image: 'opensearchproject/opensearch-dashboards:2.4.0'
+        depends_on:
+            - opensearch
+        networks:
+            - drdroid
+
+    redis:
+        image: 'redis:alpine'
+        ports:
+          - '6379:6379'
+        networks:
+          - drdroid
+
+    rimma:
+        environment:
+          kafka_servers: kafka:9092
+          ops_servers: https://opensearch:9200
+          ops_dash_servers: http://opensearch-dashboards:5601
+        image: 'public.ecr.aws/y9s1f3r5/drdroid/rimma:latest'
+        depends_on:
+          - opensearch
+          - kafka
+          - opensearch-dashboards
+          - redis
+        networks:
+          - drdroid
+
+    corellian:
+        image: 'public.ecr.aws/y9s1f3r5/drdroid/corellian:latest'
+        environment:
+          kafka_servers: kafka:9092
+        ports:
+          - 8082:8082
+        depends_on:
+          - kafka
+        networks:
+          - drdroid
+
+    kenobi:
+        image: 'public.ecr.aws/y9s1f3r5/drdroid/kenobi:latest'
+        environment:
+          ops_servers: https://opensearch:9200
+          ops_dash_servers: http://opensearch-dashboards:5601
+          REDIS_URL: redis:6379
+        depends_on:
+          - opensearch
+          - opensearch-dashboards
+          - redis
+        networks:
+          - drdroid
+
+networks:
+    drdroid:
+        driver: bridge

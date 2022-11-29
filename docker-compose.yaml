@@ -76,6 +76,7 @@ services:
           kafka_servers: kafka:9092
           ops_servers: https://opensearch:9200
           ops_dash_servers: http://opensearch-dashboards:5601
+          redis_url: redis:6379
         image: 'public.ecr.aws/y9s1f3r5/drdroid/rimma:latest'
         depends_on:
           - opensearch
@@ -101,7 +102,7 @@ services:
         environment:
           ops_servers: https://opensearch:9200
           ops_dash_servers: http://opensearch-dashboards:5601
-          REDIS_URL: redis:6379
+          redis_url: redis
         depends_on:
           - opensearch
           - opensearch-dashboards
@@ -112,3 +113,4 @@ services:
 networks:
     drdroid:
         driver: bridge
+

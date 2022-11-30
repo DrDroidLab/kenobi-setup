@@ -100,8 +100,8 @@ services:
     kenobi:
         image: 'public.ecr.aws/y9s1f3r5/drdroid/kenobi:latest'
         environment:
-          ops_servers: https://opensearch:9200
-          ops_dash_servers: http://opensearch-dashboards:5601
+          ops_servers: opensearch:9200
+          ops_dash_servers: opensearch-dashboards:5601
           redis_url: redis
         depends_on:
           - opensearch

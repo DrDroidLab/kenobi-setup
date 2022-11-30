@@ -9,10 +9,10 @@ Timestamped JSON Document Ingestion and auto visualization toolkit
 3. Run this command in your choice of directory:<br>
 `` wget https://raw.githubusercontent.com/DrDroidLab/kenobi-setup/main/docker-compose.yaml `` <br>
 `` docker-compose up -d ``
-4. Run this command in your python environment where your application is running <br>
+4. Run this command in your python environment where your application is running (https://pypi.org/project/pycodemarker/)<br>
 `` pip install pycodemarker ``
 
 5. Run this to setup the host for your just setup toolkit <br>
 `` export DRDROID_HOST=VM_IP``
 
-6. Once your application starts taking traffic, visit ``http://VM_IP:5601/app/dashboards/`` for seeing metadata about all you have instrumented. 
+6. Once your application starts taking traffic, visit ``http://VM_IP:5601/app/dashboards/`` for seeing metadata about all you have instrumented. For credentials, use username -> admin, password -> admin

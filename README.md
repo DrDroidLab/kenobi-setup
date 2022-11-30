@@ -44,7 +44,9 @@ Take a linux environment of your choice (Need to be accessible for HTTP traffic 
 ```
 
 2. Run this to setup the host for your just setup toolkit <br>
-`` export DRDROID_HOST=PUBLIC_IP``
+``` 
+   export DRDROID_HOST=PUBLIC_IP
+ ```
 
 3. Once your application starts taking traffic, visit ```http://PUBLIC_IP:5601/app/dashboards/``` for seeing metadata about all you have instrumented. Wait for a few minutes while kenobi understands your data and sets up the visualizations.
    - For credentials, use username -> admin, password -> admin

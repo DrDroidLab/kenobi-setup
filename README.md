@@ -12,19 +12,25 @@ Take a linux environment of your choice (Need to be accessible for HTTP traffic 
 1. Install docker & docker-compose
 
 2. Run this command in your choice of directory:<br>
-``` wget https://raw.githubusercontent.com/DrDroidLab/kenobi-setup/main/docker-compose.yaml```
+``` 
+   wget https://raw.githubusercontent.com/DrDroidLab/kenobi-setup/main/docker-compose.yaml
+```
 
 3. Setup kenobi by using docker compose <br>
-``` docker-compose up -d ```
+``` 
+   docker-compose up -d 
+```
 
 ### In your application:
 1. Install the Doctor Droid's pycodemarker package in your application environment using pip or pip3 (only supports >=3.6).<br>
-`` pip install pycodemarker `` <br>
+``` 
+   pip install pycodemarker 
+```
 
 2. Add instrumentation to your requests package
 ``` 
    import requests
-   from pycodemarker import codemarker ``
+   from pycodemarker import codemarker
    codemarker.DroidInstrumentor().instrument_request(requests) 
 ```
 
@@ -40,6 +46,6 @@ Take a linux environment of your choice (Need to be accessible for HTTP traffic 
 2. Run this to setup the host for your just setup toolkit <br>
 `` export DRDROID_HOST=PUBLIC_IP``
 
-3. Once your application starts taking traffic, visit ``http://PUBLIC_IP:5601/app/dashboards/`` for seeing metadata about all you have instrumented. Wait for a few minutes while kenobi understands your data and sets up the visualizations.
+3. Once your application starts taking traffic, visit ```http://PUBLIC_IP:5601/app/dashboards/``` for seeing metadata about all you have instrumented. Wait for a few minutes while kenobi understands your data and sets up the visualizations.
    - For credentials, use username -> admin, password -> admin
    - When logging in for the first time, choose 'Private' as the tenant. 

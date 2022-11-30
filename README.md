@@ -18,8 +18,24 @@ Take a linux environment of your choice (Need to be accessible for HTTP traffic 
 ``` docker-compose up -d ```
 
 ### In your application:
-1. Install the Doctor Droid instrumentation & data forwarding package in your application environment using pip or pip3 (only supports >=3.6). See here for instructions on how to instrument your code -> https://docs.drdroid.io/docs/installation-steps<br>
+1. Install the Doctor Droid's pycodemarker package in your application environment using pip or pip3 (only supports >=3.6).<br>
 `` pip install pycodemarker `` <br>
+
+2. Add instrumentation to your requests package
+``` 
+   import requests
+   from pycodemarker import codemarker ``
+   codemarker.DroidInstrumentor().instrument_request(requests) 
+```
+
+3. Add decorators to your function definitions
+``` 
+   from pycodemarker import codemarker
+
+   @codemarker.droid_peek
+   def function_call(argument1, argument2):
+       return return_value 
+```
 
 2. Run this to setup the host for your just setup toolkit <br>
 `` export DRDROID_HOST=PUBLIC_IP``

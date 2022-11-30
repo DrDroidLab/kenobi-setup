@@ -51,3 +51,4 @@ Take a linux environment of your choice (Need to be accessible for HTTP traffic 
 3. Once your application starts taking traffic, visit ```http://PUBLIC_IP:5601/app/dashboards/``` for seeing metadata about all you have instrumented. Wait for a few minutes while kenobi understands your data and sets up the visualizations.
    - For credentials, use username -> admin, password -> admin
    - When logging in for the first time, choose 'Private' as the tenant. 
+Take a look at how you can view your data on the dashboards -> [https://docs.drdroid.io/docs/getting-started](https://docs.drdroid.io/docs/getting-started)

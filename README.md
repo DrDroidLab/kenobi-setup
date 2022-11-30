@@ -1,5 +1,5 @@
 # kenobi-setup
-Timestamped JSON Document Ingestion and auto visualization toolkit
+Timestamped JSON Document Ingestion and auto visualization toolkit based on OpenSearch
 
 ## How to setup
 1. Take a linux environment of your choice (with public IP/LB as VM_IP).
@@ -19,6 +19,6 @@ See here for instructions on how to instrument your code -> https://docs.drdroid
 5. Run this to setup the host for your just setup toolkit <br>
 `` export DRDROID_HOST=VM_IP``
 
-6. Once your application starts taking traffic, visit ``http://VM_IP:5601/app/dashboards/`` for seeing metadata about all you have instrumented. 
+6. Once your application starts taking traffic, visit ``http://VM_IP:5601/app/dashboards/`` for seeing metadata about all you have instrumented. Wait for a few minutes while kenobi understands your data and sets up the visualizations.
 * For credentials, use username -> admin, password -> admin
 * When logging in for the first time, choose 'Private' as the tenant. 

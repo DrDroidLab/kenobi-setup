@@ -52,4 +52,4 @@ Take a linux environment of your choice (Need to be accessible for HTTP traffic 
    - For credentials, use username -> admin, password -> admin
    - When logging in for the first time, choose 'Private' as the tenant.
 
-4. Take a look at how you can view your data on the dashboards -> [https://docs.drdroid.io/docs/getting-started](https://docs.drdroid.io/docs/getting-started)
+4. Take a look at how you can view your data on the dashboards -> [https://docs.drdroid.io/docs/getting-started](https://kenobi.drdroid.io/docs/getting-started)
